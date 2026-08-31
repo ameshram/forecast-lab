@@ -1,0 +1,16 @@
+
+=== global_lgbm {'n_anchors': 56, 'lgb_params': {'n_estimators': 300, 'learning_rate': 0.08, 'num_leaves': 127, 'min_child_samples': 50, 'tweedie_variance_power': 1.2}} -> run d047d88915 ===
+pooled: {'vn1': np.float64(0.5429), 'wape': np.float64(0.4939), 'bias_pct': np.float64(-0.049), 'mae': 8.5217}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.6853 0.5954   -0.0899 10.5028
+2023-01-09 0.4968 0.4807   -0.0161  7.8937
+2023-04-10 0.4948 0.4407   -0.0541  7.5023
+2023-07-10 0.4905 0.4566   -0.0339  8.1880
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.4541 0.3658    0.0883 30.2860
+intermittent      7981        0.3005 0.5394 0.4677   -0.0717  6.2463
+       lumpy      4643        0.2043 0.7232 0.6179   -0.1054  9.6332
+     erratic       907        0.1348 0.5135 0.4831   -0.0304 23.2153
+insufficient      5657        0.0392 1.9055 1.1361   -0.7693  2.8400

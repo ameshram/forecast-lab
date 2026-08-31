@@ -1,0 +1,4 @@
+model:
+  name: zero
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: floor baseline

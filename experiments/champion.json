@@ -1,0 +1,20 @@
+{
+  "current": "1bb3cb32c6",
+  "history": [
+    {
+      "run_id": "2a69e4f986",
+      "reason": "Initial champion: naive_last best pooled VN1 (0.583) across 4 origins among 6 baselines",
+      "promoted_at": "2026-08-28T20:33:49+00:00"
+    },
+    {
+      "run_id": "7548b6e864",
+      "reason": "Gate PASS vs 2a69e4f986: pooled 0.5622 < 0.583, origins 3/4, p=0.0305",
+      "promoted_at": "2026-08-28T21:53:44+00:00"
+    },
+    {
+      "run_id": "1bb3cb32c6",
+      "reason": "Gate PASS vs 7548b6e864: pooled 0.5192 < 0.5622, origins 4/4, p=0.0",
+      "promoted_at": "2026-08-30T17:33:56+00:00"
+    }
+  ]
+}

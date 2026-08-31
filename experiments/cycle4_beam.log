@@ -1,0 +1,53 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/269 [00:00<?, ?it/s]Loading weights: 100%|██████████| 269/269 [00:00<00:00, 5731.84it/s]
+
+=== chronos {'checkpoint': 'amazon/chronos-bolt-base', 'batch_size': 256, 'quantile': 0.5, 'point': 'mean', 'device': 'cpu'} -> run 524453e7d8 ===
+pooled: {'vn1': np.float64(0.5878), 'wape': np.float64(0.5134), 'bias_pct': np.float64(-0.0744), 'mae': 8.8575}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.8355 0.6188   -0.2167 10.9157
+2023-01-09 0.5994 0.5350    0.0644  8.7860
+2023-04-10 0.5062 0.4501   -0.0562  7.6618
+2023-07-10 0.5286 0.4499   -0.0788  8.0663
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.3717 0.3467    0.0250 28.7034
+intermittent      7981        0.3005 0.5732 0.5072   -0.0660  6.7732
+       lumpy      4643        0.2043 0.7286 0.7110   -0.0176 11.0855
+     erratic       907        0.1348 0.6387 0.4784   -0.1603 22.9925
+insufficient      5657        0.0392 1.9713 1.0171   -0.9542  2.5424
+Loading weights:   0%|          | 0/269 [00:00<?, ?it/s]Loading weights: 100%|██████████| 269/269 [00:00<00:00, 14037.72it/s]
+
+=== chronos {'checkpoint': 'amazon/chronos-bolt-base', 'batch_size': 256, 'quantile': 0.65, 'point': 'quantile', 'device': 'cpu'} -> run 46df0bba04 ===
+pooled: {'vn1': np.float64(0.7223), 'wape': np.float64(0.5903), 'bias_pct': np.float64(0.132), 'mae': 10.1853}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.7133 0.6660   -0.0473 11.7475
+2023-01-09 0.9876 0.6643    0.3233 10.9090
+2023-04-10 0.6726 0.5216    0.1510  8.8786
+2023-07-10 0.6287 0.5134    0.1152  9.2061
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.5872 0.4046    0.1826 33.4981
+intermittent      7981        0.3005 0.7272 0.5783    0.1489  7.7234
+       lumpy      4643        0.2043 1.1419 0.8515    0.2904 13.2758
+     erratic       907        0.1348 0.5813 0.5364    0.0448 25.7794
+insufficient      5657        0.0392 1.9672 1.0286   -0.9386  2.5712
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/269 [00:00<?, ?it/s]Loading weights: 100%|██████████| 269/269 [00:00<00:00, 13798.57it/s]
+
+=== chronos {'checkpoint': 'amazon/chronos-bolt-base', 'batch_size': 256, 'point': 'qmean', 'device': 'cpu'} -> run 828187da8a ===
+pooled: {'vn1': np.float64(0.5396), 'wape': np.float64(0.5368), 'bias_pct': np.float64(-0.0028), 'mae': 9.262}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.7890 0.6289   -0.1601 11.0927
+2023-01-09 0.7297 0.5757    0.1540  9.4538
+2023-04-10 0.4948 0.4765    0.0183  8.1109
+2023-07-10 0.4798 0.4680   -0.0119  8.3907
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.3905 0.3517    0.0388 29.1159
+intermittent      7981        0.3005 0.5290 0.5244   -0.0046  7.0037
+       lumpy      4643        0.2043 0.9254 0.7732    0.1522 12.0546
+     erratic       907        0.1348 0.5653 0.5057   -0.0597 24.3019
+insufficient      5657        0.0392 1.9689 1.0244   -0.9445  2.5607

@@ -1,0 +1,7 @@
+model:
+  name: naive_last
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: repeat last week

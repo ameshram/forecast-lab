@@ -1,0 +1,17 @@
+model:
+  name: global_lgbm
+  params:
+    n_anchors: 56
+    lgb_params:
+      n_estimators: 300
+      learning_rate: 0.08
+      num_leaves: 127
+      min_child_samples: 50
+      tweedie_variance_power: 1.2
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 5A (OFF-ROADMAP rival fix, human-approved): global LightGBM Tweedie
+  with 56 anchor weeks - full seasonal cycle in the training matrix (memo predicted
+  pooled 0.53-0.56, Jan bias +25% -> <+12%; parent 7548b6e864)'

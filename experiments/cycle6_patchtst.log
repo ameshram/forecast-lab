@@ -1,0 +1,179 @@
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type              | Params | Mode 
+------------------------------------------------------------------
+0 | loss                | DistributionLoss  | 5      | train
+1 | hist_cat_embeddings | ModuleList        | 0      | train
+2 | futr_cat_embeddings | ModuleList        | 0      | train
+3 | stat_cat_embeddings | ModuleList        | 0      | train
+4 | padder_train        | ConstantPad1d     | 0      | train
+5 | scaler              | TemporalNorm      | 0      | train
+6 | model               | PatchTST_backbone | 429 K  | train
+------------------------------------------------------------------
+429 K     Trainable params
+8         Non-trainable params
+429 K     Total params
+1.719     Total estimated model params size (MB)
+93        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/src/run_experiment.py", line 57, in <module>
+    main()
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/src/run_experiment.py", line 53, in main
+    run_config(path, df=df)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/src/run_experiment.py", line 34, in run_config
+    results = run_backtest(phase0, model, origins, bt["horizon"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/src/backtest.py", line 29, in run_backtest
+    fcst = model.fit_predict(train, future_ds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/src/models/deep.py", line 66, in fit_predict
+    nf.fit(df)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/core.py", line 915, in fit
+    self.models[i] = model.fit(
+                     ^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/common/_base_model.py", line 2221, in fit
+    return self._fit(
+           ^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/common/_base_model.py", line 771, in _fit
+    trainer.fit(model, datamodule=datamodule)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 560, in fit
+    call._call_and_handle_interrupt(
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 49, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 598, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 1011, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 1055, in _run_stage
+    self.fit_loop.run()
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py", line 458, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 152, in run
+    self.advance(data_fetcher)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 348, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 177, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/core/module.py", line 1366, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/optim/lr_scheduler.py", line 166, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/optim/optimizer.py", line 530, in wrapper
+    out = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/optim/optimizer.py", line 80, in _use_grad
+    ret = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/optim/adam.py", line 227, in step
+    loss = closure()
+           ^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+                     ^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 131, in closure
+    step_output = self._step_fn()
+                  ^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 319, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py", line 391, in training_step
+    return self.lightning_module.training_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/common/_base_model.py", line 2047, in training_step
+    loss = self.loss(y=outsample_y, distr_args=distr_args, mask=outsample_mask)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/losses/pytorch.py", line 2145, in __call__
+    distr = self.get_distribution(distr_args=distr_args, **self.distribution_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/neuralforecast/losses/pytorch.py", line 2039, in get_distribution
+    distr = self._base_distribution(*distr_args, **distribution_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/distributions/negative_binomial.py", line 73, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/torch/distributions/distribution.py", line 77, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (1024, 13, 1)) of distribution NegativeBinomial(total_count: torch.Size([1024, 13, 1]), probs: torch.Size([1024, 13, 1])) to satisfy the constraint HalfOpenInterval(lower_bound=0.0, upper_bound=1.0), but found invalid values:
+tensor([[[0.1925],
+         [0.1902],
+         [0.1898],
+         ...,
+         [0.1918],
+         [0.1912],
+         [0.1917]],
+
+        [[0.1923],
+         [0.1901],
+         [0.1897],
+         ...,
+         [0.1915],
+         [0.1911],
+         [0.1916]],
+
+        [[0.6957],
+         [0.8844],
+         [0.8754],
+         ...,
+         [0.8966],
+         [0.9394],
+         [0.8897]],
+
+        ...,
+
+        [[0.1923],
+         [0.1896],
+         [0.1890],
+         ...,
+         [0.1910],
+         [0.1905],
+         [0.1913]],
+
+        [[0.1927],
+         [0.1901],
+         [0.1898],
+         ...,
+         [0.1913],
+         [0.1913],
+         [0.1917]],
+
+        [[0.1926],
+         [0.1901],
+         [0.1902],
+         ...,
+         [0.1918],
+         [0.1914],
+         [0.1918]]], grad_fn=<AddBackward0>)

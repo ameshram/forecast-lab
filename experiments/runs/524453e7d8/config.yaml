@@ -1,0 +1,14 @@
+model:
+  name: chronos
+  params:
+    checkpoint: amazon/chronos-bolt-base
+    batch_size: 256
+    quantile: 0.5
+    point: mean
+    device: cpu
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 4A (Stage 1): Chronos-Bolt base zero-shot, mean readout (memo predicted
+  pooled 0.53-0.58, bias -2..+4%; parent 4248b74828)'

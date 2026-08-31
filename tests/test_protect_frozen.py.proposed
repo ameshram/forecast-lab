@@ -1,0 +1,84 @@
+"""Acceptance tests for the fail-closed PreToolUse guard (.claude/hooks/protect_frozen.py).
+
+Runs the live hook as a subprocess and asserts its exit code (0 = allow, 2 = block).
+The load-bearing invariant: the hook must NEVER exit 1 -- Claude Code treats a
+hook exit of 1 (an uncaught exception) as non-blocking, i.e. fail-open. Every
+error path here must therefore block (2), and no path may leave a frozen file
+writable.
+"""
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parent.parent
+# Defaults to the live hook; PROTECT_FROZEN_HOOK lets you point at a candidate
+# (e.g. the .proposed file) to verify it before installing.
+HOOK = Path(os.environ.get("PROTECT_FROZEN_HOOK",
+                           ROOT / ".claude" / "hooks" / "protect_frozen.py"))
+ENV = {"CLAUDE_PROJECT_DIR": str(ROOT), "PATH": "/usr/bin:/bin"}
+
+
+def _run(raw: str) -> int:
+    p = subprocess.run([sys.executable, str(HOOK)], input=raw.encode(),
+                       capture_output=True, env=ENV)
+    assert p.returncode in (0, 2), (
+        f"hook exited {p.returncode} (never allowed -- 1 means fail-open): "
+        f"{p.stderr.decode()[:300]}")
+    return p.returncode
+
+
+def _ev(tool: str, **ti) -> str:
+    return json.dumps({"tool_name": tool, "tool_input": ti})
+
+
+BLOCK = [
+    ("edit frozen metric",        _ev("Edit", file_path="src/metrics.py")),
+    ("edit frozen backtest",      _ev("Edit", file_path="src/backtest.py")),
+    ("write the hook itself",     _ev("Write", file_path=".claude/hooks/protect_frozen.py")),
+    ("write frozen settings",     _ev("Write", file_path=".claude/settings.json")),
+    ("write protected ledger",    _ev("Write", file_path="experiments/ledger.csv")),
+    ("write protected champion",  _ev("Write", file_path="experiments/champion.json")),
+    ("bash cp -> frozen",         _ev("Bash", command="cp evil.py src/metrics.py")),
+    ("bash python -c write",      _ev("Bash", command="python -c \"open('src/metrics.py','w')\"")),
+    ("bash dd of= frozen",        _ev("Bash", command="dd if=/dev/null of=src/backtest.py")),
+    ("bash install -> frozen",    _ev("Bash", command="install -m644 evil src/metrics.py")),
+    ("bash mv frozen",            _ev("Bash", command="mv src/metrics.py /tmp/x")),
+    ("bash >> protected",         _ev("Bash", command="echo x >> experiments/ledger.csv")),
+    ("bash final_eval no signoff", _ev("Bash", command="python -m src.final_eval")),
+]
+
+ALLOW = [
+    ("edit an ordinary source file", _ev("Edit", file_path="src/models/baselines.py")),
+    ("write an ordinary file",       _ev("Write", file_path="notes.txt")),
+    ("bash write unrelated file",    _ev("Bash", command="echo hi > notes.txt")),
+    ("bash run an experiment",       _ev("Bash", command="python -m src.run_experiment configs/x.yaml")),
+    ("bash read a frozen file",      _ev("Bash", command="git diff src/metrics.py")),
+    ("bash run the test suite",      _ev("Bash", command="python -m pytest tests/")),
+]
+
+# Malformed / hostile input must FAIL CLOSED (block), never crash to exit 1.
+FAIL_CLOSED = [
+    ("stdin is not JSON",      "not json at all"),
+    ("stdin is a JSON scalar", "123"),
+    ("stdin is a JSON list",   "[1, 2, 3]"),
+    ("stdin is empty",         ""),
+]
+
+
+@pytest.mark.parametrize("label,raw", BLOCK, ids=[c[0] for c in BLOCK])
+def test_blocks_protected_mutations(label, raw):
+    assert _run(raw) == 2, f"{label} should be blocked"
+
+
+@pytest.mark.parametrize("label,raw", ALLOW, ids=[c[0] for c in ALLOW])
+def test_allows_ordinary_work(label, raw):
+    assert _run(raw) == 0, f"{label} should be allowed"
+
+
+@pytest.mark.parametrize("label,raw", FAIL_CLOSED, ids=[c[0] for c in FAIL_CLOSED])
+def test_fails_closed_on_bad_input(label, raw):
+    assert _run(raw) == 2, f"{label} must fail closed (block), not fail open"

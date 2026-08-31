@@ -1,0 +1,232 @@
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 2.5 M  | train
+-----------------------------------------------------------------
+2.5 M     Trainable params
+5         Non-trainable params
+2.5 M     Total params
+10.163    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 2.5 M  | train
+-----------------------------------------------------------------
+2.5 M     Trainable params
+5         Non-trainable params
+2.5 M     Total params
+10.163    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 2.5 M  | train
+-----------------------------------------------------------------
+2.5 M     Trainable params
+5         Non-trainable params
+2.5 M     Total params
+10.163    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 2.5 M  | train
+-----------------------------------------------------------------
+2.5 M     Trainable params
+5         Non-trainable params
+2.5 M     Total params
+10.163    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 3.0 M  | train
+-----------------------------------------------------------------
+3.0 M     Trainable params
+5         Non-trainable params
+3.0 M     Total params
+11.914    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 3.0 M  | train
+-----------------------------------------------------------------
+3.0 M     Trainable params
+5         Non-trainable params
+3.0 M     Total params
+11.914    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 3.0 M  | train
+-----------------------------------------------------------------
+3.0 M     Trainable params
+5         Non-trainable params
+3.0 M     Total params
+11.914    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Seed set to 7
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+
+  | Name                | Type             | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                | DistributionLoss | 5      | train
+1 | hist_cat_embeddings | ModuleList       | 0      | train
+2 | futr_cat_embeddings | ModuleList       | 0      | train
+3 | stat_cat_embeddings | ModuleList       | 0      | train
+4 | padder_train        | ConstantPad1d    | 0      | train
+5 | scaler              | TemporalNorm     | 0      | train
+6 | blocks              | ModuleList       | 3.0 M  | train
+-----------------------------------------------------------------
+3.0 M     Trainable params
+5         Non-trainable params
+3.0 M     Total params
+11.914    Total estimated model params size (MB)
+37        Modules in train mode
+0         Modules in eval mode
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+`Trainer.fit` stopped: `max_steps=1500` reached.
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+/Users/anupmeshram/coding_labs/learning/ML/Enterprise Forecasting/forecasting/lib/python3.11/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+=== nhits {'freq': 'W-MON', 'accelerator': 'cpu', 'distribution': 'Poisson', 'num_samples': 1000, 'futr_exog': [], 'hist_exog': [], 'stat_exog': [], 'model_params': {'input_size': 64, 'max_steps': 1500, 'batch_size': 256, 'windows_batch_size': 1024, 'learning_rate': 0.001, 'scaler_type': 'robust', 'random_seed': 7}} -> run eb69d1a3bc ===
+pooled: {'vn1': np.float64(0.5677), 'wape': np.float64(0.532), 'bias_pct': np.float64(0.0358), 'mae': 9.1782}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.6968 0.6028   -0.0940 10.6320
+2023-01-09 0.6998 0.5552    0.1446  9.1171
+2023-04-10 0.5288 0.4738    0.0550  8.0651
+2023-07-10 0.5419 0.4963    0.0456  8.8986
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.4832 0.3729    0.1104 30.8687
+intermittent      7981        0.3005 0.5098 0.5064   -0.0034  6.7637
+       lumpy      4643        0.2043 0.7768 0.6884    0.0883 10.7334
+     erratic       907        0.1348 0.5859 0.5222    0.0637 25.0974
+insufficient      5657        0.0392 1.8952 1.2498   -0.6454  3.1240
+
+=== nhits {'freq': 'W-MON', 'accelerator': 'cpu', 'distribution': 'Poisson', 'num_samples': 1000, 'futr_exog': ['woy', 'month', 'age'], 'hist_exog': ['price', 'price_chg4', 'wsls'], 'stat_exog': ['client', 'warehouse'], 'model_params': {'input_size': 64, 'max_steps': 1500, 'batch_size': 256, 'windows_batch_size': 1024, 'learning_rate': 0.001, 'scaler_type': 'robust', 'random_seed': 7}} -> run e8987a9d2b ===
+pooled: {'vn1': np.float64(0.9956), 'wape': np.float64(0.7305), 'bias_pct': np.float64(0.2651), 'mae': 12.6032}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.8549 0.6710   -0.1839 11.8362
+2023-01-09 1.4270 0.8672    0.5598 14.2411
+2023-04-10 1.0224 0.6794    0.3430 11.5661
+2023-07-10 1.0752 0.7121    0.3630 12.7692
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.7445 0.5125    0.2320 42.4301
+intermittent      7981        0.3005 1.0322 0.7247    0.3075  9.6781
+       lumpy      4643        0.2043 1.4499 0.9825    0.4674 15.3187
+     erratic       907        0.1348 0.8548 0.6911    0.1637 33.2136
+insufficient      5657        0.0392 1.8777 1.3829   -0.4947  3.4569

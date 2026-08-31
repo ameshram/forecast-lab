@@ -1,0 +1,34 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/269 [00:00<?, ?it/s]Loading weights: 100%|██████████| 269/269 [00:00<00:00, 8650.90it/s]
+
+=== chronos {'checkpoint': 'amazon/chronos-bolt-base', 'batch_size': 256, 'quantile': 0.5, 'point': 'quantile', 'device': 'cpu'} -> run 4248b74828 ===
+pooled: {'vn1': np.float64(0.5878), 'wape': np.float64(0.5134), 'bias_pct': np.float64(-0.0744), 'mae': 8.8575}
+    origin    vn1   wape  bias_pct     mae
+2022-10-10 0.8355 0.6188   -0.2167 10.9157
+2023-01-09 0.5994 0.5350    0.0644  8.7860
+2023-04-10 0.5062 0.4501   -0.0562  7.6618
+2023-07-10 0.5286 0.4499   -0.0788  8.0663
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.3717 0.3467    0.0250 28.7034
+intermittent      7981        0.3005 0.5732 0.5072   -0.0660  6.7732
+       lumpy      4643        0.2043 0.7286 0.7110   -0.0176 11.0855
+     erratic       907        0.1348 0.6387 0.4784   -0.1603 22.9925
+insufficient      5657        0.0392 1.9713 1.0171   -0.9542  2.5424
+
+=== timesfm {'checkpoint': 'google/timesfm-2.5-200m-pytorch', 'batch_size': 128, 'max_context': 512, 'max_horizon': 64} -> run e8a11552ec ===
+pooled: {'vn1': np.float64(0.6512), 'wape': np.float64(0.4612), 'bias_pct': np.float64(-0.19), 'mae': 7.9566}
+    origin    vn1   wape  bias_pct    mae
+2022-10-10 0.8375 0.5444   -0.2931 9.6028
+2023-01-09 0.5735 0.4413   -0.1322 7.2464
+2023-04-10 0.5718 0.4136   -0.1582 7.0400
+2023-07-10 0.6145 0.4427   -0.1718 7.9374
+
+by Syntetos-Boylan class:
+     segment  n_series  volume_share    vn1   wape  bias_pct     mae
+      smooth      1192        0.3212 0.3381 0.3209    0.0172 26.5671
+intermittent      7981        0.3005 0.6962 0.4645   -0.2317  6.2037
+       lumpy      4643        0.2043 0.8921 0.5831   -0.3090  9.0911
+     erratic       907        0.1348 0.6251 0.4465   -0.1786 21.4601
+insufficient      5657        0.0392 1.9886 0.9999   -0.9887  2.4994

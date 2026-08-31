@@ -1,0 +1,20 @@
+model:
+  name: nhits
+  params:
+    freq: W-MON
+    accelerator: cpu
+    distribution: Poisson
+    num_samples: 1000
+    futr_exog: [woy, month, age]          # deterministic-future calendar + lifecycle age
+    hist_exog: [price, price_chg4, wsls]  # past-only price + weeks-since-last-sale (recency)
+    stat_exog: [client, warehouse]        # static per series
+    model_params:
+      input_size: 64
+      max_steps: 1500
+      batch_size: 256
+      windows_batch_size: 1024
+      learning_rate: 0.001
+      scaler_type: robust
+      random_seed: 7
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 7 treatment (Stage 2): global N-HiTS + Poisson WITH covariates (price ffill, price_chg4, wsls, woy, month, age, client, warehouse) — ONE change vs nhits_poisson.yaml: information ON. Tests ROADMAP 'what is that information worth' + the diagnosed phantom-demand driver (memo 2026-08-29-cycle7; parent 7548b6e864). Covariate/model logic: src/models/deep.py sha1[:12]=e683abf7266e (config hash does NOT cover model code; valid only against this deep.py revision). Env: neuralforecast==3.2.1, torch==2.13.0; seed=7, num_samples=1000. Non-bitwise-reproducible (torch training + MC-mean readout) — report the OFF/ON delta relative to this jitter."

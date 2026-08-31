@@ -1,0 +1,20 @@
+model:
+  name: nhits
+  params:
+    freq: W-MON
+    accelerator: cpu
+    distribution: Poisson
+    num_samples: 1000
+    futr_exog: []            # covariates OFF — architecture-matched baseline
+    hist_exog: []
+    stat_exog: []
+    model_params:
+      input_size: 64
+      max_steps: 1500
+      batch_size: 256
+      windows_batch_size: 1024
+      learning_rate: 0.001
+      scaler_type: robust
+      random_seed: 7
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 7 baseline (Stage 2): global N-HiTS + Poisson, NO covariates — architecture-matched control for the covariate-value delta (memo 2026-08-29-cycle7; parent 7548b6e864). N-HiTS used because PatchTST is univariate-only. Covariate/model logic: src/models/deep.py sha1[:12]=e683abf7266e (config hash does NOT cover model code; valid only against this deep.py revision). Env: neuralforecast==3.2.1, torch==2.13.0; seed=7, num_samples=1000. Non-bitwise-reproducible (torch training + MC-mean readout) — report the OFF/ON delta relative to this jitter."
