@@ -17,3 +17,6 @@ data/
 
 # Large per-run forecast dumps (regenerable); the ledger/metrics ARE tracked
 experiments/runs/*/forecasts.parquet
+
+# CatBoost training logs/tmp, written to the working dir during fit (regenerable)
+catboost_info/
