@@ -1,5 +1,7 @@
 # Forecast Lab — Enterprise Demand Forecasting
 
+[![tests](https://github.com/ameshram/forecast-lab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/ameshram/forecast-lab/actions/workflows/tests.yml)
+
 **The question this project answers** (see [ROADMAP.md](ROADMAP.md), the
 canonical goal document): *do today's best deep learning forecasters —
 including pre-trained foundation models — actually beat simpler methods on
