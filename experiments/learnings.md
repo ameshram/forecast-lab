@@ -331,3 +331,224 @@ double-execution of the promote command comparing the new champion to itself.)
   0 NaN, 1.7 min) is a cheap, high-value pre-flight for a mixed GBM+torch
   blend — confirmed the OMP mitigation and the true runtime (~7 min total,
   not the 1–1.5 h estimated) before committing the full run.
+
+## Cycle 10 (OFF-ROADMAP zoo, human-approved: 12 runs across Tiers 0–4) —
+no challenger beat the champion, ZERO gate evals spent, budget stays 14/25.
+First quiet cycle (1 of 2) toward the ROADMAP stopping rule.
+
+- Runs: croston `57bee33498` 0.8495 / SBA `771488878b` 0.8824 / TSB
+  `43f080e588` 0.5846 / AutoETS `e8dab74d6a` 0.5715 / AutoTheta
+  `88447a52f4` **0.5355** / XGB-56 `d1083e2be5` 0.5509 / CatBoost-56
+  `523f9c23da` **0.5289** / TFT `f7d0b97ce8` **0.5494** / DeepAR
+  `bf6eab60fb` 0.5852 / Chronos-2 qmean `92906cd09e` 1.0713 / Chronos-2
+  median `461e681f0d` 0.6040 / Moirai-2 median `7c77d54b6f` 0.6814 / TTM
+  `451ecc4919` 0.7595. Champion `1bb3cb32c6` 0.5192 unbeaten.
+- Prediction scoring: #1 no-zoo-model-beats-blend **SUPPORTED** (best:
+  CatBoost 0.5289). #2 **SUPPORTED** — TSB ≥ Crostons (intermittent 0.589
+  vs 1.150) and neither beats naive 0.583 (TSB 0.5846, by 0.0016!). #3
+  HALF — DeepAR 0.5852 in range; TFT 0.5494 BELOW range (better); both
+  cleared the bias smoke (the "one fails" coin-flip lost). #4 **REFUTED,
+  worst miss of the project** — Chronos-2 does NOT beat Bolt-qmean on
+  either readout (qmean 1.0713!, median 0.6040 vs Bolt 0.5396/0.5878);
+  predicted 0.50–0.56 "likeliest gate candidate", realized zero gate case.
+  #5 HALF — Moirai 0.6814 in range; TTM 0.7595 above it. #6 **SUPPORTED**
+  — 0 of ≤2 evals spent. #7 HALF — XGB 0.5509 within ±0.02 of LGBM
+  0.5622; CatBoost 0.5289 outside it on the GOOD side.
+- **BIG durable finding (paper headline): the model-family ordering on
+  messy intermittent retail demand is blend > GBM ≈ classical-Theta >
+  trained-deep > zero-shot-FM > intermittent-classical.** A 1999
+  decomposition (AutoTheta 0.5355) beats every deep net, every foundation
+  model, and 2 of 3 GBMs. The canonical intermittent methods
+  (Croston/SBA) are the WORST serious models here (−22/−26% bias) —
+  lifecycle churn violates their stationary-demand assumption; TSB's
+  probability decay fixes most of it (0.5846) but adds nothing over naive.
+- **CatBoost `523f9c23da` is the best single model in the ledger** (0.5289;
+  lumpy 0.667 bias −1.3% — below the champion blend's 0.678; beats the
+  champion at Oct 0.677/0.716 and Jan 0.534/0.564). Same features, same
+  Tweedie, same 56 anchors as LGBM-56 0.5429 → the booster implementation
+  itself is worth ~1.4 VN1 points here (ordered-boosting/symmetric trees on
+  sparse targets, mechanism unverified). NEXT LEVER registered: blend-swap
+  memo (CatBoost replacing GBM-56 inside the champion blend).
+- **Readout calibration does NOT transfer across FM checkpoint families
+  (new prior):** Bolt's winning trimmed-mean exploded on Chronos-2 — its
+  upper quantile heads on zero-inflated series are far heavier (lumpy bias
+  +157%, segment VN1 3.76). Same trap, third occurrence: Chronos-2's
+  "mean" IS its median (verified, sumF identical), and gluonts
+  QuantileForecast.mean warns it returns the median (Moirai). Every FM
+  point readout must be semantics-tested AND bias-smoked vs REAL actuals
+  per family before a full run — the contract-only smoke missed a +157%
+  segment bias (smoke_fm.py now scores bias; kept for all zoo/FM runs).
+- **The FM under-forecast signature generalizes (prior strengthened):**
+  3 of 4 FM families (TimesFM −19.0%, Moirai-2 −20.3%, TTM −19.9%) show
+  the same failure — top-tier WAPE (Moirai 0.478 beats even the champion's
+  0.493) destroyed by ~−20% under-forecast bias on intermittent/lumpy.
+  Chronos-Bolt-qmean remains the ONLY well-calibrated zero-shot readout in
+  the ledger (−0.3%). Bigger/newer checkpoints did not help (Chronos-2 <
+  Bolt on both readouts) — "don't reach for bigger checkpoints" upheld.
+- Deep-net addendum: final architecture ordering TFT 0.5494 > N-HiTS
+  0.5677 > DeepAR 0.5852 > PatchTST 0.6516 — same Poisson loss, no
+  covariates, so architecture (not loss) drives a 0.10 spread. TFT is the
+  first trained net to land BETTER than its predicted range → trained-net
+  calibration error is two-sided noise, not pure optimism; keep wide
+  ranges, drop the assume-worse rule.
+- Salvage for future blends: Chronos-2-median has the best January origin
+  in the ledger (0.569) and near-best smooth (0.351); CatBoost the best
+  lumpy (0.667). Complementary-failure raw material, per the Cycle-9
+  mechanism.
+
+## Cycle 11 (Stage 3 continuation: CatBoost blend-swap beam) — gate PASS,
+`4f9b475ead` PROMOTED, budget 16/25 (2 evals: informational + promote-confirm).
+Quiet-cycle counter reset to 0.
+
+- `3330b31053` Option A (cat+qmean 50/50, the falsification arm) ·
+  **predicted** pooled 0.505–0.525, lumpy bias +5.5..+8.5%, lumpy VN1
+  >0.712 = computed-R4-fail · **realized** 0.5159 / **+6.94%** / 0.7489 —
+  ALL THREE dead-centre (arithmetic said +6.9%). A pooled WIN that is
+  unpromotable: CatBoost's neutral lumpy bias deletes the cancellation.
+  **The offsetting-bias trap was predicted IN ADVANCE with a fresh pair
+  and confirmed** — the prior graduates from post-hoc explanation to
+  forward-predictive tool. No gate spent on A (verdict arithmetically
+  determined, Cycle-5 precedent).
+- `4f9b475ead` Option B (gbm56+cat+qmean ⅓ each) · **predicted** pooled
+  0.512–0.524, lumpy bias 0..+2.5%, lumpy ≤0.68, WAPE ≥0.489 · **realized**
+  **0.5137** / **+1.12%** (computed +1.1%) / 0.6509 / 0.4893 — all four ✓.
+  Gate PASS (3/4 origins, p=0.000, zero segment regressions) → PROMOTED.
+  New champion beats the old on EVERY ≥10%-volume segment; lumpy
+  0.678→0.651; Jan 0.564→0.545; only Apr lost, by 0.002.
+- Prediction #4 (gate spend ≤1) **MISSED**: 2 evals spent — I forgot the
+  Cycle-9-known convention that promote-confirm re-runs the gate and logs a
+  second eval. Budget predictions must count evals per gate INVOCATION, not
+  per decision.
+- **Calibration:** 7 of 8 sub-predictions dead-centre across the beam —
+  the composites-predict-tightly prior is now validated on five distinct
+  blend predictions (Cycle 9: 2, Cycle 11: 5 of 5 mechanism/score claims).
+  Linear bias arithmetic on ledger components is the cheapest reliable
+  forecast instrument this project has.
+- **Engineering (recorded in CLAUDE.md):** the two-config beam process
+  segfaulted (exit 139) when config B's LightGBM loaded into a process
+  where CatBoost's libomp was already resident (A had just finished);
+  fresh-process with lgbm-first order is clean. One run_experiment
+  invocation per booster-mixing config; the runs themselves were both
+  NaN-free with full coverage (prediction #1 ✓).
+
+## Cycle 12 (Stage 3 endpoint: principled-weight blend) `b12f62f304` —
+hypothesis REFUTED, no gate case (R1 computed-fail), 0 evals, budget 16/25.
+**Quiet cycle 1 of 2.**
+
+- `b12f62f304` weight_fit_blend {gbm56, cat56, qmean, chronos2-median},
+  weights fit leak-free per origin (13w internal holdout, one SLSQP solve
+  minimizing holdout VN1) · **predicted** pooled 0.503–0.520 coin-flip,
+  chronos2 weight 0.10–0.30 at ≥3 origins, Jan ≤0.573 · **realized** pooled
+  **0.5383** (champion 0.5137 — loses by 2.5 pts, 1/4 origins), chronos2
+  fit to **~0 at 3 of 4 origins** (the registered dry-well alternative),
+  Jan **0.4931** ✓ contained — and the best January in the ledger.
+- Prediction scoring: #1 clean ✓ · #2 alternative fired (dry well measured,
+  not assumed) · #3 MISSED above range · #4 ✓ (the trailing-fit failure
+  mode did NOT materialize at the turn) · #5 ✓ 0 spent.
+- **Mechanism (from the per-origin weight/score table, not guessed):** the
+  fit improved the HOLDOUT at all 4 origins (e.g. 0.503→0.488) but the
+  gains did not survive the 13-week jump to the forecast window — worst at
+  Oct (0.65 weight on qmean, honest for a mid-2022 holdout when GBMs were
+  data-starved, cost 0.730 vs 0.692 out-of-window). `DEAD-END`:
+  trailing-holdout weight FITTING on this portfolio — weights chase regime
+  detail that shifts; equal weights are the robust choice (this now has
+  direct evidence, extending the `2c050a9d24` trailing-ratio lesson from
+  level-scaling to weight-fitting, in a milder form: no blowup, just
+  non-generalization).
+- **Genuine discovery inside the loss:** an all-GBM-family January blend
+  (0.42 gbm56 + 0.58 cat56) scored **0.4931 at the Jan origin — best in
+  the ledger** (gbm56 alone 0.497, champion 0.545). The 56-anchor GBMs now
+  OWN the seasonal turn they once failed; qmean's turn-insurance is no
+  longer needed there. Paper finding; NOT a promotion path (per-origin
+  weight-switching = the router trap in a new hat, barred by the
+  non-separability prior without a bias-neutral mechanism).
+- **Stage 3 is now closed with evidence on all three fronts:** equal
+  weights ≈ optimal out-of-window; trailing fits don't generalize; no
+  unused ledger component earns weight from a free optimizer. The
+  composite lever is exhausted. Per the memo: no protocol variants.
+  Champion `4f9b475ead` stands; **quiet cycle 1 of 2** toward
+  PHASE1_SIGNOFF.
+
+## Cycle 13 — QUIET CYCLE 2 of 2 (human-confirmed 2026-09-01). Stopping
+rule MET.
+
+- /diagnose produced, for the first time in 13 cycles, ZERO proposable
+  hypotheses surviving the ledger's own priors: every residual gap (smooth
+  vs TimesFM 0.338, lumpy 0.028 pooled headroom, Oct-2022 origin, the
+  all-GBM January 0.493) is closed by a specific refuting run-id or a
+  standing prior — equal-weight arithmetic (cycle-12 memo), fitted weights
+  (`b12f62f304`), routing (`7a52b16fe3`), trailing fits (`2c050a9d24`,
+  `b12f62f304`), bigger checkpoints (`92906cd09e`/`461e681f0d`), new
+  families (12-model zoo, none within 1.5 pts of the champion).
+- No memo, no runs, no gate spend. Budget final: 16/25. Champion
+  `4f9b475ead` (0.5137) is the final pre-exam champion.
+- **The ROADMAP stopping rule (two consecutive no-champion cycles) is
+  satisfied.** Next and final step is human-only: create
+  `experiments/PHASE1_SIGNOFF`, then `python -m src.final_eval` runs the
+  champion ONCE on the untouched Phase 1 — the paper's headline number.
+
+## Cycle 13-b (OFF-ROADMAP zoo addendum, human-approved: TimesFM-3, released
+2026-08-31) — comparison runs only, 0 gate evals, budget 16/25. The quiet
+2-of-2 declaration STANDS.
+
+- `9c198e246f` TimesFM-3 median · `8582538c28` TimesFM-3 qmean ·
+  **predicted** best readout 0.52–0.62, no champion threat; qmean pulls
+  intermittent bias into −10..+5%; smooth ≤0.36; native head is not a
+  genuine mean; 0 gate evals · **realized** median **0.7304** (+7.0%),
+  qmean **1.0256** (+24.3%) — best readout MISSED above the range (worse
+  than predicted, and worse than TimesFM-2.5's 0.6512 on both readouts);
+  champion never threatened ✓; qmean intermittent bias **−6.2% ✓ in range**
+  (from 2.5's −23%); smooth 0.346 ✓ (still elite); native==median ✓
+  (byte-identical sums); 0 evals ✓.
+- **The family-fix hypothesis PARTIALLY held, then was swamped**: the
+  quantile-mean readout did exactly what was registered on intermittent
+  (−23%→−6.2%) — the mechanism was right — but a NEW failure mode dominated
+  pooled: lumpy over-forecast +76% (median) / +140% (qmean), concentrated
+  at the January origin (1.98 / 2.73, bias +74% / +114%).
+- **BIG durable finding (prior added): the newest-generation FMs share a
+  NEW failure signature the old generation lacked.** Chronos-2
+  (`92906cd09e` lumpy +157%, Jan 1.88) and TimesFM-3 (`8582538c28` lumpy
+  +140%, Jan 2.73) — different labs, months apart — both HALLUCINATE
+  demand on lumpy series at the seasonal turn, where the older generation
+  (Bolt, TimesFM-2.5, Moirai, TTM) systematically UNDER-forecast
+  (−19..−26%). "Newer/bigger checkpoints don't help" is now three-times
+  confirmed and upgraded: on zero-inflated retail data, newer is
+  actively WORSE, with an inverted bias sign.
+- Median-as-point is now **4 of 4 FM families** (Bolt `524453e7d8`,
+  Chronos-2, gluonts/Moirai, TimesFM-3 verified byte-identical) — a
+  universal packaging finding for the paper.
+- **Process lesson (prior added): a single-origin smoke cannot catch an
+  origin-specific blowup.** Both runs passed the Jul-origin smoke
+  (bias-ratio 0.920/0.965, WAPE ~0.37) and detonated at the Jan origin.
+  The smoke validates plumbing and level, not seasonal-turn behaviour —
+  for zero-shot models (where an extra origin costs only inference), any
+  future pre-run smoke should include the January origin as a second
+  point; for trained models it stays a cost call, stated in the memo.
+
+## FINAL EXAM (2026-09-01) — human sign-off, human-run, ONE shot.
+**Phase 1 VN1 = 0.5346 · WAPE 0.5141 · bias +2.05%.** Project complete.
+
+- Champion `4f9b475ead` trained on all of Phase 0, scored once on the
+  untouched 13-week Phase 1 (2023-10-09→). Report:
+  `experiments/final_eval_report.json`.
+- **Registered expectation 0.50–0.56 (centre ~0.52) → 0.5346 ✓ in range.**
+  The +0.021 gap vs validation pool (0.5137) is the Q4 seasonal penalty,
+  mostly bought back by the extra training year (validation Oct origin was
+  0.692).
+- **The bias-cancellation mechanism GENERALIZED**: lumpy bias −0.6% on
+  unseen data (validation +1.1%) — the core Cycle-9/11 engineering held
+  out-of-sample. Pooled bias +2.05%. Segments: smooth 0.417, intermittent
+  0.531, lumpy 0.711, erratic 0.688 (−11.5%, the one soft spot),
+  insufficient 3.03 at 0.18% volume (scope fence vindicated).
+- Engineering: the first exam attempt DEADLOCKED (~36 min in, 0% CPU) —
+  run without the OMP mitigation env vars; killed by the human with no
+  Phase-1 readout produced (one-shot integrity intact, false start
+  documented). Rerun with `OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE`
+  completed cleanly. LESSON: the OMP mitigation applies to EVERY champion
+  invocation, including final_eval; it must appear in any runbook/README
+  command the champion touches.
+- North Star answer, sealed: no deep net or foundation model alone beat
+  the simpler methods anywhere in 38 runs; the winner is a
+  bias-cancelling blend of two GBMs and one zero-shot FM readout, proven
+  on a locked test window at 0.5346. Remaining work is writing, not
+  experimenting.

@@ -1,0 +1,9 @@
+model:
+  name: ttm
+  params:
+    checkpoint: ibm-granite/granite-timeseries-ttm-r2
+    context_length: 90
+    batch_size: 1024
+    freq: W
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 10 (OFF-ROADMAP zoo, human-approved): IBM Granite TinyTimeMixer r2 zero-shot - get_model picks revision 90-30-ft-r2.1 for (context 90w, h 13) with prediction_filter_length=13; weekly freq_token=9 required by the r2.1 frequency-prefix forward (verified probe 2026-08-31: no NaN, sane on all-zero/lumpy/smooth). Point forecaster (MSE head) - no readout ambiguity. Tier-4 foundation model. Run from the throwaway isolated venv (granite-tsfm RED vs main venv: transformers 5.16/torch 2.11; pandas<3 pinned to protect harness behavior). Wrapper src/models/ttm_fm.py. Parent champion 1bb3cb32c6."

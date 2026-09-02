@@ -10,3 +10,10 @@ torch>=2.13
 chronos-forecasting>=2.3
 timesfm>=2.0
 neuralforecast>=3.2
+statsforecast>=2.1
+xgboost>=3.0
+catboost>=1.2
+# NOT here on purpose: uni2ts (Moirai) and granite-tsfm (TTM) are RED
+# installs against this stack (conflicting torch/pandas pins) - run them
+# from a throwaway isolated venv; see configs/moirai2_small_median.yaml
+# and configs/ttm_r2.yaml notes.

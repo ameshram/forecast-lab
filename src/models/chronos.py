@@ -62,6 +62,11 @@ class ChronosZeroShot:
         wide = history_matrix(train, self.context_weeks)
         ids = wide.index.values
         h = len(future_ds)
+        # Chronos-2 has a different predict contract than Bolt/T5 (list of
+        # per-series tensors, a genuine mean head); the Bolt path below is
+        # left byte-identical so existing chronos runs are unaffected.
+        if type(pipe).__name__ == "Chronos2Pipeline":
+            return self._fit_predict_chronos2(pipe, wide, ids, h, future_ds)
         ctx = torch.tensor(wide.values, dtype=torch.float32)
         levels = (self.QMEAN_LEVELS if self.point == "qmean"
                   else [self.quantile])
@@ -85,4 +90,33 @@ class ChronosZeroShot:
             "ds": np.tile(np.array(future_ds, dtype="datetime64[ns]"),
                           len(ids)),
             "yhat": yhat.ravel(),
+        })
+
+    def _fit_predict_chronos2(self, pipe, wide, ids, h, future_ds):
+        """Chronos-2 path. predict_quantiles returns (quantiles, mean) as
+        LISTS of per-series tensors: quantiles[i] is (n_variates, h, n_levels)
+        and mean[i] is (n_variates, h); here n_variates == 1 (univariate).
+        point='mean' uses the model's genuine mean head; 'qmean' averages the
+        nine quantile heads; 'quantile' takes the single configured level."""
+        ctx3 = wide.values[:, None, :].astype("float32")   # (n, 1, history)
+        levels = (self.QMEAN_LEVELS if self.point == "qmean"
+                  else [self.quantile])
+        q_list, mean_list = pipe.predict_quantiles(
+            ctx3, prediction_length=h, quantile_levels=levels,
+            batch_size=self.batch_size)
+        out = np.empty((len(ids), h), dtype=float)
+        for i in range(len(ids)):
+            if self.point == "mean":
+                out[i] = mean_list[i][0].cpu().numpy()
+            elif self.point == "qmean":
+                out[i] = q_list[i][0].mean(dim=-1).cpu().numpy()
+            else:
+                out[i] = q_list[i][0, :, 0].cpu().numpy()
+        if self.clip_negative:
+            out = np.maximum(out, 0.0)
+        return pd.DataFrame({
+            SERIES_ID: np.repeat(ids, h),
+            "ds": np.tile(np.array(future_ds, dtype="datetime64[ns]"),
+                          len(ids)),
+            "yhat": out.ravel(),
         })

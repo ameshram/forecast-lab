@@ -1,0 +1,19 @@
+model:
+  name: moirai
+  params:
+    checkpoint: Salesforce/moirai-2.0-R-small
+    batch_size: 64
+    quantile: 0.5
+    point: quantile
+    device: cpu
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): Moirai 2.0 R-small zero-shot (Salesforce,
+  uni2ts 2.0), MEDIAN readout. Readout chosen after the Chronos-2 qmean blowup (92906cd09e,
+  lumpy bias +157%): FM upper quantile heads on zero-inflated series are untrustworthy
+  by default, and gluonts QuantileForecast.mean IS the median (no genuine mean head
+  - the 524453e7d8 trap, third occurrence). Tier-4 foundation model. Run from the
+  throwaway isolated venv (uni2ts stack is RED vs main venv: torch 2.4.1/pandas 2.1.4).
+  Wrapper src/models/moirai_fm.py. Parent champion 1bb3cb32c6.'

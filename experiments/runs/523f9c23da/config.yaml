@@ -1,0 +1,12 @@
+model:
+  name: global_cat
+  params:
+    n_anchors: 56
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): global CatBoost twin of the champion-parent
+  LightGBM - same feature pipeline, Tweedie loss (variance_power 1.2), symmetric depth-7
+  trees, client/warehouse as native cat_features, 56 anchors. Tier-1 ML comparison.
+  Parent 1bb3cb32c6.'

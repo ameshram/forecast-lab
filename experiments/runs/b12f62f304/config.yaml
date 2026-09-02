@@ -1,0 +1,45 @@
+model:
+  name: weight_fit_blend
+  params:
+    holdout_weeks: 13
+    models:
+    - name: global_lgbm
+      params:
+        n_anchors: 56
+        lgb_params:
+          n_estimators: 300
+          learning_rate: 0.08
+          num_leaves: 127
+          min_child_samples: 50
+          tweedie_variance_power: 1.2
+    - name: global_cat
+      params:
+        n_anchors: 56
+    - name: chronos
+      params:
+        checkpoint: amazon/chronos-bolt-base
+        batch_size: 256
+        point: qmean
+        device: cpu
+    - name: chronos
+      params:
+        checkpoint: amazon/chronos-2
+        batch_size: 256
+        quantile: 0.5
+        point: quantile
+        device: cpu
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 12 Option A (Stage 3 continuation, human-approved): 4-way PRINCIPLED-WEIGHT
+  blend of GBM-56 (d047d88915) + CatBoost-56 (523f9c23da) + Bolt-qmean (828187da8a)
+  + Chronos-2-median (461e681f0d). Weights FIT leak-free per origin on the last 13
+  in-training weeks via one deterministic SLSQP simplex solve minimizing holdout VN1
+  (WeightFitBlend, memo 2026-08-31-cycle12; no grids, no repeats - a gate failure
+  does NOT license protocol variants). Mechanism: fitted weights can admit Chronos-2-median
+  at the sub-1/4 weight its -9.4% pooled bias demands (equal weights arithmetically
+  cannot), buying its elite smooth (0.351) and January strength while keeping the
+  lumpy cancellation. Registered: chronos2 weight 0.10-0.30 at >=3 origins; pooled
+  0.503-0.520 (coin flip vs champion 0.5137); Jan origin <=0.573. Run with OMP_NUM_THREADS=1
+  KMP_DUPLICATE_LIB_OK=TRUE, fresh process (libomp caution). Parent champion 4f9b475ead.'

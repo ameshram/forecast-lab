@@ -1,0 +1,9 @@
+model:
+  name: timesfm
+  params:
+    checkpoint: google/timesfm-3.0-pytorch
+    batch_size: 128
+    max_context: 512
+    point: qmean
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 13-b (OFF-ROADMAP zoo addendum, human-approved): TimesFM-3 330M zero-shot, QMEAN readout (mean of the nine quantile heads 0.1..0.9) - the family-fix hypothesis: TimesFM-2.5's point head under-forecast intermittent by -23% (e8a11552ec); v3's new quantile heads allow the trimmed-mean readout that made Bolt-qmean the only well-calibrated zero-shot model (828187da8a, -0.3%). Registered: intermittent bias lands in -10..+5%; pooled 0.52-0.62; does NOT beat champion 0.5137. Per the readout-transfer prior, calibration NOT assumed - semantics test + bias smoke passed before this run. Univariate only. Parent champion 4f9b475ead."

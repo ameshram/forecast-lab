@@ -1,5 +1,5 @@
 {
-  "current": "1bb3cb32c6",
+  "current": "4f9b475ead",
   "history": [
     {
       "run_id": "2a69e4f986",
@@ -15,6 +15,11 @@
       "run_id": "1bb3cb32c6",
       "reason": "Gate PASS vs 7548b6e864: pooled 0.5192 < 0.5622, origins 4/4, p=0.0",
       "promoted_at": "2026-08-30T17:33:56+00:00"
+    },
+    {
+      "run_id": "4f9b475ead",
+      "reason": "Gate PASS vs 1bb3cb32c6: pooled 0.5137 < 0.5192, origins 3/4, p=0.0",
+      "promoted_at": "2026-08-31T23:33:22+00:00"
     }
   ]
 }

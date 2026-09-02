@@ -1,0 +1,6 @@
+model:
+  name: global_xgb
+  params:
+    n_anchors: 56
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 10 (OFF-ROADMAP zoo, human-approved): global XGBoost twin of the champion-parent LightGBM - same feature pipeline (lags/rolls/lifecycle/price/woy), Tweedie objective (variance_power 1.2), lossguide 127 leaves, 56 anchors. Tier-1 ML comparison; tests whether the booster choice matters vs LightGBM 0.5622. Parent 1bb3cb32c6."

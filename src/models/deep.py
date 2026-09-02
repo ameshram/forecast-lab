@@ -82,6 +82,119 @@ class GlobalPatchTST:
         return out
 
 
+def _to_contract(fc, model, default_alias: str):
+    """Map a neuralforecast predict() frame to [SERIES_ID, ds, yhat].
+
+    Same logic the PatchTST/NHITS wrappers inline (the base point column is the
+    distribution MEAN; '<alias>-*' quantile columns are ignored). Shared only by
+    the Cycle-10 zoo classes below; the existing wrappers keep their inline copy
+    so their behaviour is provably unchanged.
+    """
+    alias = getattr(model, "alias", None) or default_alias
+    if alias not in fc.columns:
+        cand = [c for c in fc.columns
+                if c not in ("unique_id", "ds") and "-" not in c]
+        if not cand:
+            raise RuntimeError(f"no point column in {list(fc.columns)}")
+        alias = cand[0]
+    out = (fc.rename(columns={"unique_id": SERIES_ID, alias: "yhat"})
+             [[SERIES_ID, "ds", "yhat"]].copy())
+    out["ds"] = pd.to_datetime(out["ds"])
+    out["yhat"] = np.clip(out["yhat"].to_numpy(dtype="float64"), 0.0, None)
+    return out
+
+
+# Per-architecture untuned defaults (Cycle 10 zoo). Same generic training budget
+# as the existing deep nets (input_size 64, max_steps 1500, lr 1e-3, robust
+# scaler, seed 7) so the comparison is apples-to-apples; only the
+# architecture-specific knobs differ. No tuning surface.
+DEEPAR_DEFAULTS = dict(
+    input_size=64, max_steps=1500, batch_size=256,
+    learning_rate=1e-3, scaler_type="robust", random_seed=7,
+    lstm_n_layers=2, lstm_hidden_size=128, lstm_dropout=0.1,
+)
+TFT_DEFAULTS = dict(
+    input_size=64, max_steps=1500, batch_size=256, windows_batch_size=1024,
+    learning_rate=1e-3, scaler_type="robust", random_seed=7,
+    hidden_size=128, n_head=4,
+)
+
+
+class GlobalDeepAR:
+    """Global DeepAR (Amazon's autoregressive probabilistic RNN) with a count
+    DistributionLoss. No covariates. Point forecast = distribution mean, same
+    contract as the other deep nets. Tier-2 comparison."""
+    name = "deepar"
+
+    def __init__(self, freq: str = "W-MON", accelerator: str = "cpu",
+                 distribution: str = "Poisson", num_samples: int = 1000,
+                 model_params: dict | None = None):
+        self.freq = freq
+        self.accelerator = accelerator
+        self.distribution = distribution
+        self.num_samples = num_samples
+        self.model_params = {**DEEPAR_DEFAULTS, **(model_params or {})}
+
+    def fit_predict(self, train, future_ds):
+        import torch
+        from neuralforecast import NeuralForecast
+        from neuralforecast.losses.pytorch import DistributionLoss
+        from neuralforecast.models import DeepAR
+
+        torch.manual_seed(int(self.model_params["random_seed"]))
+        h = len(future_ds)
+        df = train[[SERIES_ID, "ds", "y"]].rename(columns={SERIES_ID: "unique_id"})
+
+        model = DeepAR(
+            h=h,
+            loss=DistributionLoss(self.distribution, num_samples=self.num_samples),
+            enable_progress_bar=False, logger=False,
+            accelerator=self.accelerator, **self.model_params,
+        )
+        nf = NeuralForecast(models=[model], freq=self.freq)
+        nf.fit(df)
+        fc = nf.predict()
+        return _to_contract(fc, model, "DeepAR")
+
+
+class GlobalTFT:
+    """Global Temporal Fusion Transformer with a count DistributionLoss. No
+    covariates (matched to the other deep-net comparisons). Point forecast =
+    distribution mean. Tier-2 comparison."""
+    name = "tft"
+
+    def __init__(self, freq: str = "W-MON", accelerator: str = "cpu",
+                 distribution: str = "Poisson", num_samples: int = 1000,
+                 model_params: dict | None = None):
+        self.freq = freq
+        self.accelerator = accelerator
+        self.distribution = distribution
+        self.num_samples = num_samples
+        self.model_params = {**TFT_DEFAULTS, **(model_params or {})}
+
+    def fit_predict(self, train, future_ds):
+        import torch
+        from neuralforecast import NeuralForecast
+        from neuralforecast.losses.pytorch import DistributionLoss
+        from neuralforecast.models import TFT
+
+        torch.manual_seed(int(self.model_params["random_seed"]))
+        h = len(future_ds)
+        df = train[[SERIES_ID, "ds", "y"]].rename(columns={SERIES_ID: "unique_id"})
+
+        model = TFT(
+            h=h,
+            loss=DistributionLoss(self.distribution, num_samples=self.num_samples),
+            start_padding_enabled=True,
+            enable_progress_bar=False, logger=False,
+            accelerator=self.accelerator, **self.model_params,
+        )
+        nf = NeuralForecast(models=[model], freq=self.freq)
+        nf.fit(df)
+        fc = nf.predict()
+        return _to_contract(fc, model, "TFT")
+
+
 # ---------------------------------------------------------------------------
 # N-HiTS with optional exogenous covariates (Cycle 7). PatchTST is univariate
 # only (EXOGENOUS_* all False), so the covariate experiment uses N-HiTS (the

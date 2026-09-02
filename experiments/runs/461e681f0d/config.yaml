@@ -1,0 +1,19 @@
+model:
+  name: chronos
+  params:
+    checkpoint: amazon/chronos-2
+    batch_size: 256
+    quantile: 0.5
+    point: quantile
+    device: cpu
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): Chronos-2 zero-shot, MEDIAN readout
+  - readout disambiguation for the same approved zoo item after the qmean run 92906cd09e
+  blew up on lumpy (segment VN1 3.76, bias +157.0%, pooled 1.0713): Bolt''s trimmed-mean
+  calibration does NOT transfer to Chronos-2, whose upper quantile heads are far heavier
+  on zero-inflated series. This median run gives the fair single number for the paper''s
+  comparison table (Bolt precedent: median 4248b74828 0.5878 vs qmean 828187da8a 0.5396
+  - opposite ordering expected here). Parent 92906cd09e.'
