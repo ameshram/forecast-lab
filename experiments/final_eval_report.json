@@ -1,0 +1,98 @@
+{
+  "champion_run": "4f9b475ead",
+  "model": {
+    "name": "blend",
+    "params": {
+      "models": [
+        {
+          "name": "global_lgbm",
+          "params": {
+            "n_anchors": 56,
+            "lgb_params": {
+              "n_estimators": 300,
+              "learning_rate": 0.08,
+              "num_leaves": 127,
+              "min_child_samples": 50,
+              "tweedie_variance_power": 1.2
+            }
+          }
+        },
+        {
+          "name": "global_cat",
+          "params": {
+            "n_anchors": 56
+          }
+        },
+        {
+          "name": "chronos",
+          "params": {
+            "checkpoint": "amazon/chronos-bolt-base",
+            "batch_size": 256,
+            "point": "qmean",
+            "device": "cpu"
+          }
+        }
+      ],
+      "weights": [
+        0.3333333333,
+        0.3333333333,
+        0.3333333334
+      ]
+    }
+  },
+  "phase1_start": "2023-10-09",
+  "n_weeks": 13,
+  "pooled": {
+    "vn1": 0.5346,
+    "wape": 0.5141,
+    "bias_pct": 0.0205,
+    "mae": 10.2617
+  },
+  "segments": [
+    {
+      "segment": "intermittent",
+      "n_series": 7664,
+      "volume_share": 0.3695,
+      "vn1": 0.5314,
+      "wape": 0.4587,
+      "bias_pct": 0.0727,
+      "mae": 6.6452
+    },
+    {
+      "segment": "smooth",
+      "n_series": 937,
+      "volume_share": 0.2596,
+      "vn1": 0.417,
+      "wape": 0.381,
+      "bias_pct": 0.036,
+      "mae": 31.7084
+    },
+    {
+      "segment": "lumpy",
+      "n_series": 4397,
+      "volume_share": 0.23,
+      "vn1": 0.7108,
+      "wape": 0.7049,
+      "bias_pct": -0.0059,
+      "mae": 11.0796
+    },
+    {
+      "segment": "erratic",
+      "n_series": 782,
+      "volume_share": 0.1391,
+      "vn1": 0.6878,
+      "wape": 0.5733,
+      "bias_pct": -0.1145,
+      "mae": 30.6396
+    },
+    {
+      "segment": "insufficient",
+      "n_series": 1273,
+      "volume_share": 0.0018,
+      "vn1": 3.0315,
+      "wape": 2.1521,
+      "bias_pct": 0.8794,
+      "mae": 0.9058
+    }
+  ]
+}
