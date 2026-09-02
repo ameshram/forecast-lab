@@ -69,9 +69,16 @@ evidence. Rigor over speed; one change per experiment.
    `src/final_eval.py`. A changed metric invalidates every ledger row. If a
    harness change is truly needed, the human lifts the freeze by editing
    `.claude/hooks/protect_frozen.py` themselves.
-3. ★ **The ledger is append-only** (`experiments/ledger.csv`,
-   `champion.json`, `gate_log.jsonl`) — written only via `src/ledger.py` /
-   `src/gates.py`.
+3. ★ **The ledger is written only through `src/ledger.py` / `src/gates.py`**
+   (`experiments/ledger.csv`, `champion.json`, `gate_log.jsonl`); never edit
+   these files directly. It is config-hashed, NOT append-only: `record_run`
+   derives `run_id` from the config, and re-running an identical config
+   REPLACES that run's ledger row and overwrites `experiments/runs/<run_id>/`
+   (independent audit 2026-09-01, finding 4-G — it happened to the six
+   baseline runs on 2026-08-28). Never re-run a config whose original
+   artifacts must survive (the champion above all) without copying its run
+   directory first. `champion.json` history and `gate_log.jsonl` are genuinely
+   append-only.
 4. **Every experiment is a config file** in `configs/`, run via
    `python -m src.run_experiment configs/<name>.yaml`. No ad-hoc evaluation
    paths. New models register in `src/models/__init__.py` with the
