@@ -480,3 +480,37 @@ Verified after all runs: `experiments/ledger.csv`, `gate_log.jsonl`,
 pre-audit modification times; no Phase-1 sales or price values were loaded
 (only the `ds` column for the boundary/grid check); no experiment config was
 run through `run_experiment` or `record_run`.
+
+## Resolution status (follow-up, 2026-09-02)
+
+Actioned after the audit, in the same session, at the author's direction.
+This section records what has changed since the findings above; the findings
+themselves are left as written (a point-in-time record).
+
+- **Blocker 1 (commit and tag the evidence) — DONE.** The 18 uncommitted
+  runs, four cycle memos, four wrappers, seven test files, the `4f9b475ead`
+  promotion, `PHASE1_SIGNOFF`, `final_eval_report.json` and this memo are
+  committed on `main` (`36f3398`, `5b5a292`, `7e5a751`, `fa33e47`), pushed to
+  `origin/main`, and tagged `paper-evidence-v1` at `fa33e47`.
+- **Blocker 2 (fix the README) — DONE.** Leaderboard rebuilt from the 38-run
+  ledger with `4f9b475ead` (0.5137) as champion; Phase-1 headline and
+  per-class table added; run count and status corrected; audit caveats
+  summarised.
+- **Blocker 3 (append-only claim) — PARTIALLY DONE.** The wording is
+  corrected in CLAUDE.md (non-negotiable 3) and the README: the ledger is
+  config-hashed, and re-running a config replaces its row and run directory.
+  **Still open:** `record_run` itself is unchanged (it still overwrites), and
+  the `.claude/hooks/protect_frozen.py` docstring still says "append-only"
+  (frozen file — the author's edit to make).
+- **Blocker 6 (pin what can still be pinned) — PARTIALLY DONE.** Package
+  versions and the five HF checkpoint revisions are now recorded in the
+  README's Reproduce section; configs are not yet pinned to those revisions.
+- **Blockers 4, 5, 7 — OPEN, for the paper.** State the FM-contamination
+  limitation; re-frame the gate statistics (series-bootstrap decision rule,
+  plus the cluster-bootstrap / leave-one-origin-out results and the
+  four-origin limitation) with 0.5346 as the sole headline; and either
+  reproduce the scratchpad-only diagnostics into `experiments/` artifacts or
+  drop those numbers.
+
+All ten "caveats the paper must state" remain the author's to carry into the
+manuscript; none is resolved by the changes above.
