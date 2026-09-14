@@ -1,0 +1,9 @@
+model:
+  name: chronos
+  params:
+    checkpoint: amazon/chronos-bolt-base
+    batch_size: 256
+    point: qmean
+    device: cpu
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 4A corrected (Stage 1): Chronos-Bolt trimmed-mean readout (average of 9 trained quantiles). Run 524453e7d8 (point=mean) was a no-op duplicate of 4248b74828 - the chronos package returns the median as 'mean' for Bolt (chronos_bolt.py predict_quantiles NOTE). This executes the memo's actual Option A mechanism (predicted pooled 0.53-0.58, bias -2..+4%)"

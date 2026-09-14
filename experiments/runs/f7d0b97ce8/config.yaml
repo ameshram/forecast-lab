@@ -1,0 +1,14 @@
+model:
+  name: tft
+  params:
+    distribution: Poisson
+    num_samples: 1000
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): global Temporal Fusion Transformer
+  + Poisson DistributionLoss, NO covariates, distribution-mean readout. Tier-2 deep
+  comparison. Passed mandatory bias-ratio smoke (300 steps, 3000 spiky series: ratio
+  1.056, in-band). Model logic src/models/deep.py sha1[:12]=6ecd0196997a. Env neuralforecast==3.2.1
+  torch==2.13.0; seed=7 num_samples=1000; non-bitwise-reproducible. Parent 1bb3cb32c6.'

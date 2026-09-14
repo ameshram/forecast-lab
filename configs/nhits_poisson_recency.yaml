@@ -1,0 +1,20 @@
+model:
+  name: nhits
+  params:
+    freq: W-MON
+    accelerator: cpu
+    distribution: Poisson
+    num_samples: 1000
+    futr_exog: []                         # calendar OFF (recency >> seasonality prior)
+    hist_exog: [price, price_chg4, wsls]  # recency/price signal only (diagnosed driver)
+    stat_exog: []                         # static OFF
+    model_params:
+      input_size: 64
+      max_steps: 1500
+      batch_size: 256
+      windows_batch_size: 1024
+      learning_rate: 0.001
+      scaler_type: robust
+      random_seed: 7
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 8 (Stage 2): global N-HiTS + Poisson with HIST recency/price covariates only (price ffill, price_chg4, wsls) — ONE change vs no-cov eb69d1a3bc: the diagnosed recency signal ON. Corrects Cycle 7's confounded 8-covariate arm (ablation: hist-only bias-ratio 1.000, all-8 1.262). Tests ROADMAP 'what is that information worth' (memo 2026-08-30-cycle8; parent 7548b6e864). Covariate/model logic: src/models/deep.py sha1[:12]=e683abf7266e (config hash does NOT cover model code). Env: neuralforecast==3.2.1, torch==2.13.0; seed=7, num_samples=1000. Non-bitwise-reproducible (torch training + MC-mean readout) — report the covariate delta vs eb69d1a3bc relative to this jitter."

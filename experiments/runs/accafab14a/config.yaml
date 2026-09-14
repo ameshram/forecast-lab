@@ -1,0 +1,12 @@
+model:
+  name: seasonal_uplift_naive
+  params:
+    alpha: 0.5
+    clip_low: 0.5
+    clip_high: 2.0
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 1C: naive re-anchored by damped client week-of-year uplift (predicted
+  pooled 0.56-0.57, Oct-origin bias fix)'

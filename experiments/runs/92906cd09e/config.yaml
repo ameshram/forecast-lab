@@ -1,0 +1,20 @@
+model:
+  name: chronos
+  params:
+    checkpoint: amazon/chronos-2
+    batch_size: 256
+    point: qmean
+    device: cpu
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): Chronos-2 zero-shot, trimmed-mean
+  readout (average of 9 quantile heads 0.1..0.9). Point-readout semantics verified
+  on 300 real series (origin 2023-07-10): predict_quantiles returns the MEDIAN in
+  the ''mean'' slot exactly as Bolt does (mean==0.5-quantile, both sumF=127,003; qmean
+  distinct at 133,687) - so point=mean would be a no-op duplicate of the median (the
+  524453e7d8 trap). qmean is the calibrated readout that made Bolt-qmean 828187da8a
+  bias -0.3%. Tier-4 foundation model; the single likeliest gate candidate of the
+  zoo (predicted pooled 0.50-0.56). Wrapper: Chronos2Pipeline branch in src/models/chronos.py;
+  run with OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE. Parent champion 1bb3cb32c6.'

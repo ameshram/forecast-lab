@@ -1,0 +1,8 @@
+model:
+  name: statsforecast
+  params:
+    model: CrostonSBA
+    params: {}
+    n_jobs: 1
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 10 (OFF-ROADMAP zoo, human-approved): Croston SBA (Syntetos-Boylan Approximation, bias-corrected Croston) via statsforecast. Tier-0 intermittent classical. Parent champion 1bb3cb32c6."

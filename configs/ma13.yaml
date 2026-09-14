@@ -1,0 +1,5 @@
+model:
+  name: moving_average
+  params: {window: 13}
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: 13-week moving average

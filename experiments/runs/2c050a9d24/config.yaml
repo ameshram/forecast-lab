@@ -1,0 +1,22 @@
+model:
+  name: bias_scaled
+  params:
+    base:
+      name: segment_router
+      params:
+        default:
+          name: naive_last
+        routes:
+          smooth:
+            name: moving_average
+            params:
+              window: 13
+    holdout_weeks: 13
+    alpha: 0.5
+    clip_low: 0.85
+    clip_high: 1.2
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 2A: trailing-ratio debias on cycle-1 router (predicted 0.555-0.575)'

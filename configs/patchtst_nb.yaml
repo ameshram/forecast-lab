@@ -1,0 +1,21 @@
+model:
+  name: patchtst
+  params:
+    freq: W-MON
+    accelerator: cpu          # reproducible/stable; MPS available but flakier
+    distribution: NegativeBinomial
+    num_samples: 1000         # MC draws behind the mean readout; pinned (nf default) for repro
+    model_params:
+      input_size: 64          # >= full seasonal cycle (cycle-5 lesson)
+      patch_len: 8
+      stride: 8
+      max_steps: 1500
+      hidden_size: 128
+      n_heads: 16
+      batch_size: 256
+      windows_batch_size: 1024
+      learning_rate: 0.001     # nf tutorial LR paired with reduced max_steps; untuned
+      scaler_type: robust      # NaN-safe on all-zero series (verified)
+      random_seed: 7
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 6A (Stage 2): global PatchTST, NegativeBinomial DistributionLoss, no covariates, distribution-mean readout (memo 2026-08-29 predicted pooled 0.52-0.60, lumpy bias |<10.5%|; parent 7548b6e864). Point=distribution mean (nf base column, verified != median). lr=1e-3 (nf tutorial LR paired with reduced max_steps=1500; untuned, reconciles memo's 'lr default'). Env: neuralforecast==3.2.1, torch==2.13.0. Deep-model training is not bitwise-reproducible (torch); seed=7, num_samples=1000 recorded."

@@ -1,0 +1,29 @@
+# Python environment
+forecasting/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# Local (machine-specific) Claude Code settings — shared settings.json IS tracked
+.claude/settings.local.json
+
+# Raw VN1 competition data is NOT redistributed with this repo (licensing;
+# see README "Data source & citation"). Download it from the source and place
+# it in data/. The tidy panel is rebuilt from those files by src/data.py.
+data/
+
+# Large per-run forecast dumps (regenerable); the ledger/metrics ARE tracked
+experiments/runs/*/forecasts.parquet
+
+# CatBoost training logs/tmp, written to the working dir during fit (regenerable)
+catboost_info/
+
+# Verbose training/run logs (regenerable build artifacts, machine-specific paths)
+*.log
+experiments/*.log
+
+# Phase sign-off scratch (local working note, not a deliverable)
+experiments/PHASE1_SIGNOFF

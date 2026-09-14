@@ -1,0 +1,5 @@
+model:
+  name: seasonal_naive
+  params: {season: 52}
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: 52-week seasonal naive

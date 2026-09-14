@@ -1,0 +1,10 @@
+model:
+  name: timesfm
+  params:
+    checkpoint: google/timesfm-3.0-pytorch
+    batch_size: 128
+    max_context: 512
+    point: quantile
+    quantile: 0.5
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 13-b (OFF-ROADMAP zoo addendum, human-approved): TimesFM-3 330M zero-shot (released 2026-08-31), MEDIAN readout. Semantics verified on 300 real series (origin 2023-07-10): the native point head IS the median (sumF byte-identical 1,291,845) - the median-as-point pattern now holds in ALL FOUR FM families (Bolt 524453e7d8, Chronos-2, gluonts/Moirai, TimesFM-3). Univariate only per memo 2026-09-01-cycle13b; covariates out of scope. timesfm pip 2.0.2->3.0.0 (GREEN, zero dep changes; 2.5 API preserved so e8a11552ec stays reproducible). Comparison run - the quiet-2-of-2 stopping-rule declaration stands unless this computes a pooled win. Parent champion 4f9b475ead."

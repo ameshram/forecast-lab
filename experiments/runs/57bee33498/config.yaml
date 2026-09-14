@@ -1,0 +1,13 @@
+model:
+  name: statsforecast
+  params:
+    model: CrostonClassic
+    params: {}
+    n_jobs: 1
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 'Cycle 10 (OFF-ROADMAP zoo, human-approved): Croston Classic via statsforecast
+  2.1.1 - the canonical intermittent-demand baseline, previously missing from the
+  ledger. Tier-0 classical. Parent champion 1bb3cb32c6.'

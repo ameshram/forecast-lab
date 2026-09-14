@@ -1,0 +1,8 @@
+model:
+  name: segment_router
+  params:
+    default: {name: naive_last}
+    routes:
+      smooth: {name: moving_average, params: {window: 13}}
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: "Cycle 1A: smooth->MA13, else naive_last (memo 2026-08-28, predicted pooled ~0.545)"

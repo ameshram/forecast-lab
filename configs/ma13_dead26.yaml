@@ -1,0 +1,5 @@
+model:
+  name: moving_average
+  params: {window: 13, zero_dead_weeks: 26}
+backtest: {n_origins: 4, horizon: 13, step: 13}
+notes: MA13 with dead-series zeroing (26w)

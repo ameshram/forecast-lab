@@ -1,0 +1,9 @@
+model:
+  name: moving_average
+  params:
+    window: 8
+backtest:
+  n_origins: 4
+  horizon: 13
+  step: 13
+notes: 8-week moving average
